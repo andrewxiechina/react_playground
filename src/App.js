@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Header from './components/Header.js'
+import Player from './components/Player.js'
+import Counter from './components/Counter.js'
 
 var PLAYERS = [
   {
@@ -22,24 +24,28 @@ var PLAYERS = [
 ];
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { players: PLAYERS };
+  }
+  changeScore = (index, n) => {
+    this.state.players[index].score +=n;
+    this.setState(this.state);
+  }
   render() {
     return (
       <div className="application">
         <Header title="My Score Board"/>
-
         <div className="players">
-          <div className="player">
-            <div  className="player-name">
-              Jim Hoskins
-            </div>
-            <div className="player-score">
-              <div className="counter">
-                <button className="counter-action decrement"> - </button>
-                <div className="counter-score"> 31 </div>
-                <button className="counter-action increment"> + </button>
-              </div>
-            </div>
-          </div>
+          {this.state.players.map(function (player, index){
+              return (
+                <Player 
+                  name={player.name} 
+                  score={player.score} 
+                  key={player.id} 
+                  changeScore={function(n) {this.changeScore(index,n)}.bind(this)} />
+              );
+          }.bind(this))}
         </div>
       </div>
     );
