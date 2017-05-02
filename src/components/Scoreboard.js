@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../css/App.css';
+import '../css/Scoreboard.css';
 import Header from './Header.js'
 import Player from './Player.js'
 import Counter from './Counter.js'
